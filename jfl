@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+ 
+   
+ stages {
+      stage('git checkout') {
+           steps {
+             
+                git branch: 'main', url: 'https://github.com/n4devops/pydash.git'
+             
+          }
+        }
+      stage('Docker Build and Tag') {
+           steps {
+              
+                sh 'sudo docker build -t sampledpyapp1 .' 
+                
+          }}
+          stage('Docker run') {
+           steps {
+              
+                sh 'sudo docker run -d -p 9090:80 sampledpyapp1' 
+                
+          }
+        }
+ }}
